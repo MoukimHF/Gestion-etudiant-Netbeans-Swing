@@ -39,7 +39,14 @@ public class Fenetre extends javax.swing.JFrame {
     }
      public void myFunction(String text) {
             lblWelcome.setText("Welcome "+text);
+          if(!text.equals("admin")){
+            btnSupprimer.setEnabled(false);
+            btnModifier.setEnabled(false);
+            btnAjouter.setEnabled(false);
+            
+          }
         }
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

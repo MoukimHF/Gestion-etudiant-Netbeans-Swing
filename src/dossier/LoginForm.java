@@ -218,7 +218,52 @@ public class LoginForm extends javax.swing.JFrame {
                        JOptionPane.showMessageDialog(null, "empty field");
 
                     }
-        else{
+        else {
+            
+            if(!txtUsername.getText().equals("admin")){
+            
+             Cnx cnx1 = new Cnx();
+           Statement stmt;
+            try {
+                stmt = cnx1.con.createStatement();
+                String sql = "select * from user where username = '"+txtUsername.getText()+"'";
+            ResultSet rs1=stmt.executeQuery(sql);
+            if (rs1.next()) {
+                String password = rs1.getString("password");
+                boolean verif = txtPassword.getText().equals(password) ;
+                if(verif){
+                    int id = rs1.getInt("id");
+                    String username = rs1.getString("username");
+                    System.out.printf("Welcome %s your id is %d %n" , username , id);
+                      Fenetre f = new Fenetre();
+                      f.myFunction(username);
+        f.setVisible(true);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+                }
+              
+
+                  
+                    else {
+                        JOptionPane.showMessageDialog(null, "incorrect information");
+
+                    }
+
+
+                
+            }
+            else{
+            JOptionPane.showMessageDialog(null, "incorrect username");
+            }
+            cnx1.con.close(); 
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            }
+            else{
             System.out.println("hello from the other side ");
     
         Cnx cnx = new Cnx();
@@ -262,12 +307,8 @@ public class LoginForm extends javax.swing.JFrame {
             }
             
             
-       
+            }
 
-            
-            
-        
-    
         
         }
     }//GEN-LAST:event_btnloginActionPerformed
